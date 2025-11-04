@@ -1,0 +1,57 @@
+[package]
+name = "minecli"
+version = "0.1.0"
+edition = "2021"
+authors = ["Ivan Vedernikov <ecugol@gmail.com>"]
+description = "A beautiful TUI (Terminal User Interface) client for Redmine project management"
+readme = "README.md"
+homepage = "https://github.com/ecugol/minecli"
+repository = "https://github.com/ecugol/minecli"
+license = "MIT"
+keywords = ["redmine", "tui", "terminal", "project-management", "cli"]
+categories = ["command-line-utilities"]
+
+[package.metadata.wix]
+upgrade-guid = "6A2375A1-BDC9-4E1B-82E3-B97ECBA205E3"
+path-guid = "8ACE3526-6193-420F-B805-B247D3E85BA0"
+license = false
+eula = false
+
+[[bin]]
+name = "minecli"
+path = "src/main.rs"
+
+[lib]
+name = "minecli"
+path = "src/lib.rs"
+
+[dependencies]
+ratatui = "0.29"
+crossterm = "0.28"
+tokio = { version = "1.42", features = ["full"] }
+reqwest = { version = "0.12", features = ["json", "rustls-tls"], default-features = false }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+anyhow = "1.0"
+thiserror = "1.0"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+tracing-appender = "0.2"
+confy = "0.6"
+chrono = { version = "0.4", features = ["serde"] }
+directories = "5.0"
+dirs = "5.0"
+rusqlite = { version = "0.32", features = ["bundled", "chrono"] }
+open = "5.0"
+ratatui-image = { version = "8.0", features = ["crossterm"] }
+image = "0.25"
+ratatui-explorer = "0.1.2"
+
+[dev-dependencies]
+tempfile = "3.8"
+mockito = "1.2"
+
+# The profile that 'dist' will build with
+[profile.dist]
+inherits = "release"
+lto = "thin"

@@ -1,0 +1,31 @@
+# Rust
+/target/
+**/*.rs.bk
+*.pdb
+Cargo.lock
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Config (contains API keys)
+config.toml
+
+# Backup files
+src/**/*.bak*
+stub_*.rs
+
+# Logs
+logs/
+*.log
+
+# Claude/AI tools
+.claude/
+SUMMARY.md
