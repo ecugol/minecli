@@ -436,10 +436,17 @@ fn render_form_field(
     } else {
         field.label.clone()
     };
+    
+    // Add help text for date fields when focused
+    let title_with_help = if is_focused && field.help_text.is_some() {
+        format!("{} ({})", title, field.help_text.as_ref().unwrap())
+    } else {
+        title
+    };
 
     let widget = Paragraph::new(display_text)
         .style(style)
-        .block(Block::default().borders(Borders::ALL).title(title))
+        .block(Block::default().borders(Borders::ALL).title(title_with_help))
         .wrap(Wrap { trim: false });
 
     f.render_widget(widget, area);

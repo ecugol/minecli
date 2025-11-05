@@ -161,14 +161,18 @@ impl IssueForm {
         form.add_field(FormField::new_progress("done_ratio", "% Done"));
 
         // Add custom fields (tracker-specific)
+        // Note: Custom fields are currently treated as text fields since we only
+        // have access to IssueCustomField (value only) not CustomField (with format metadata).
+        // To properly support typed custom fields, we would need to:
+        // 1. Change tracker_custom_fields_cache to store CustomField instead of IssueCustomField
+        // 2. Load and cache CustomField data from project details API
+        // 3. Match on field_format to create appropriate field types
         for custom_field in custom_fields {
             let field_key = format!("custom_field_{}", custom_field.id);
-            // For now, treat all custom fields as text fields
-            // TODO: Parse field_format to determine field type
             form.add_field(FormField::new_text(
                 &field_key,
                 &custom_field.name,
-                false, // Not required by default - we'd need more metadata
+                false, // Not required - we don't have metadata to determine this
             ));
         }
 
