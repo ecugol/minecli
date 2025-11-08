@@ -180,7 +180,36 @@ impl RedmineClient {
     }
 
     pub async fn get_project_memberships(&self, project_id: u64) -> Result<MembershipsResponse> {
-        self.get(&format!("projects/{}/memberships.json", project_id)).await
+        // Fetch all memberships with pagination to ensure we get all assignees
+        let limit = 100;
+        let mut offset = 0;
+        let mut all_memberships = Vec::new();
+        
+        loop {
+            let response: MembershipsResponse = self
+                .get(&format!(
+                    "projects/{}/memberships.json?limit={}&offset={}",
+                    project_id, limit, offset
+                ))
+                .await?;
+            
+            let count = response.memberships.len();
+            all_memberships.extend(response.memberships);
+            
+            // Check if we've fetched all memberships
+            if count < limit as usize {
+                break;
+            }
+            
+            offset += limit;
+        }
+        
+        Ok(MembershipsResponse {
+            memberships: all_memberships,
+            total_count: None,
+            offset: None,
+            limit: None,
+        })
     }
 
     pub async fn update_issue_with_comment(&self, issue_id: u64, update: UpdateIssue) -> Result<()> {
