@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.1] - 2024-11-04
+
+### Bug Fixes
+
+- **Fixed missing assignees in dropdown**: Now fetches all project members with pagination instead of only the first page (~25-100). Assignees that were visible in the web UI but missing in MineCLI will now appear.
+- **Made Status and Category fields searchable in update/reply form**: Users can now press `/` to search in Status and Category dropdowns when updating issues, matching the create issue form behavior.
+- **Added date format hint**: Date fields now display `(Format: YYYY-MM-DD)` when focused to guide users on the expected format.
+
 ## [0.1.0] - 2024-11-04
 
 ### Initial Release

@@ -1,6 +1,6 @@
 [package]
 name = "minecli"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 authors = ["Ivan Vedernikov <ecugol@gmail.com>"]
 description = "A beautiful TUI (Terminal User Interface) client for Redmine project management"
