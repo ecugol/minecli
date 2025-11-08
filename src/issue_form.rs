@@ -254,7 +254,7 @@ impl IssueForm {
         // Notes/Comment - optional textarea
         form.add_field(FormField::new_textarea("notes", "Notes (comment)", false));
 
-        // Status - optional dropdown
+        // Status - optional searchable dropdown
         let status_options: Vec<FieldOption> = statuses
             .iter()
             .map(|s| FieldOption {
@@ -262,7 +262,7 @@ impl IssueForm {
                 name: s.name.clone(),
             })
             .collect();
-        let mut status_field = FormField::new_dropdown("status_id", "Status", status_options, false);
+        let mut status_field = FormField::new_searchable_dropdown("status_id", "Status", status_options, false);
         status_field.default_value = Some(FieldValue::OptionId(Some(current_status_id)));
         form.add_field(status_field);
 
@@ -294,7 +294,7 @@ impl IssueForm {
         progress_field.default_value = Some(FieldValue::Number(current_done_ratio));
         form.add_field(progress_field);
 
-        // Category - optional dropdown (project-specific)
+        // Category - optional searchable dropdown (project-specific)
         if !categories.is_empty() {
             let category_options: Vec<FieldOption> = std::iter::once(FieldOption {
                 id: 0,
@@ -305,7 +305,7 @@ impl IssueForm {
                 name: c.name.clone(),
             }))
             .collect();
-            let mut category_field = FormField::new_dropdown("category_id", "Category", category_options, false);
+            let mut category_field = FormField::new_searchable_dropdown("category_id", "Category", category_options, false);
             category_field.default_value = Some(FieldValue::OptionId(current_category_id));
             form.add_field(category_field);
         }
